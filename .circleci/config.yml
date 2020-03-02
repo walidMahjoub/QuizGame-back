@@ -28,9 +28,6 @@ jobs:
         command: php bin/console cache:clear
         working_directory: ./
     - run:
-        command: php bin/console doctrine:database:create
-        working_directory: ./
-    - run:
         command: yes | php app/console doctrine:fixtures:load --fixtures=src/DataFixtures/Dev || true
         working_directory: ./
     - run:
