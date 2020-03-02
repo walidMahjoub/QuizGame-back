@@ -10,4 +10,36 @@ workflows:
   welcome:
     # Run the welcome/run job in its own container
     jobs:
-      - welcome/run
+      build:
+        docker:
+          - image: circleci/php:7.4.3
+          - image: circleci/mysql:8.0.3
+            environment:
+              MYSQL_DATABASE: quizGame
+              MYSQL_ROOT: root
+
+        steps:
+            - run: sudo apt update
+            - run: sudo wget https://get.symfony.com/cli/installer -O - | bash
+
+            - run:
+                command: php bin/console cache:clear --env=prod
+                working_directory: ./
+            - run:
+                command: composer install
+                working_directory: ./
+            - run:
+                command: php bin/console doctrine:database:create
+                working_directory: ./
+            - run:
+                command: yes | php app/console doctrine:fixtures:load --fixtures=src/DataFixtures/Dev || true
+                working_directory: ./
+            - run:
+                command: symfony serve -d
+                working_directory: ./
+            - run:
+                command: php bin/phpunit
+                working_directory: ./
+            - run:
+                command: symfony server:stop
+                working_directory: ./

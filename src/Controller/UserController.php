@@ -15,4 +15,10 @@ class UserController extends AbstractApiController
     {
         return $this->createApiResponse($this->getUser(), Response::HTTP_OK);
     }
+    /**
+     * @Route("/login", methods={"POST"}, name="login")
+     */
+    public function login()
+    {
+    }
 }
