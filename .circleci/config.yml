@@ -16,7 +16,9 @@ jobs:
     - run: sudo apt update
     - run: sudo docker-php-ext-install pdo_mysql
     - run: sudo docker-php-ext-enable pdo_mysql
-    - run: sudo wget https://get.symfony.com/cli/installer -O - | bash
+    - run:
+        command: sudo wget https://get.symfony.com/cli/installer -O - | bash
+        working_directory: ./
 
     - run:
         command: composer install
@@ -31,7 +33,7 @@ jobs:
         command: yes | php app/console doctrine:fixtures:load --fixtures=src/DataFixtures/Dev || true
         working_directory: ./
     - run:
-        command: symfony serve -d
+        command: symfony server:start -d
         working_directory: ./
     - run:
         command: php bin/phpunit
