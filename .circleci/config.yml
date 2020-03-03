@@ -16,9 +16,8 @@ jobs:
     - run: sudo apt update
     - run: sudo docker-php-ext-install pdo_mysql
     - run: sudo docker-php-ext-enable pdo_mysql
-    - run:
-        command: sudo wget https://get.symfony.com/cli/installer -O - | bash
-        working_directory: ./
+    - run: sudo wget https://get.symfony.com/cli/installer -O - | bash
+    - run: sudo mv /home/circleci/.symfony/bin/symfony /usr/local/bin/symfony
 
     - run:
         command: composer install
