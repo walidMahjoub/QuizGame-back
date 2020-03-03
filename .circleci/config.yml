@@ -29,7 +29,7 @@ jobs:
         command: php bin/console cache:clear
         working_directory: ./
     - run:
-        command: yes | php app/console doctrine:fixtures:load --fixtures=src/DataFixtures/Dev || true
+        command: yes | php bin/console doctrine:fixtures:load --fixtures=src/DataFixtures/Dev || true
         working_directory: ./
     - run:
         command: symfony server:start -d
