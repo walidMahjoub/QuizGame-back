@@ -29,6 +29,9 @@ jobs:
         command: php bin/console cache:clear
         working_directory: ./
     - run:
+        command: yes | php bin/console doctrine:migrations:migrate || true
+        working_directory: ./
+    - run:
         command: yes | php bin/console doctrine:fixtures:load || true
         working_directory: ./
     - run:
